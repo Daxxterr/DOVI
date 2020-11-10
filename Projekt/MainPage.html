@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Statistic video player</title>
+    <script src="Change%20quality.js"></script>
+</head>
+<body>
+<video id="myVideo" controls preload="auto" height="720" width="1280"></video>
+<label>buffer size:</label>
+<label id="size"></label>
+<button onclick="change1080()">Play in 1080p</button>
+<button onclick="change720()">Play in 720p</button>
+<button onclick="change540()">Play in 540p</button>
+<button onclick="change360()">Plan in 360p</button>
+
+<script>
+    var video = document.getElementById('myVideo');
+    var source = document.createElement("source");
+    source.setAttribute("src","Video/1080.mp4");
+    video.appendChild(source);
+    function change1080(){
+        video.pause();
+        source.setAttribute("src","Video/1080.mp4");
+        video.load();
+    }
+    function change720(){
+        video.pause();
+        source.setAttribute("src","Video/720.mp4");
+        video.load();
+    }
+    function change540(){
+        video.pause();
+        source.setAttribute("src","Video/540.mp4");
+        video.load();
+    }
+    function change360() {
+        video.pause();
+        source.setAttribute("src","Video/360.mp4");
+        video.load();
+    }
+</script>
+</body>
+</html>
