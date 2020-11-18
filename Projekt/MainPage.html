@@ -33,7 +33,7 @@
 
     var video = document.getElementById("myVideo");
     var source = document.createElement("source");
-    //source.setAttribute("src","https://filebin.net/v4gov3ofnd1tktxi/1080.mp4?t=x3tdbvjy");
+    //source.setAttribute("src","https://filebin.net/v4gov3ofnd1tktxi/1080.mp4?t=4m2dqvxt");
     source.setAttribute("src","Video/1080.mp4");
     video.appendChild(source);
 
@@ -46,6 +46,7 @@
             var buf=video.buffered.end(0);
             var len = video.duration;
             var buff_p = (buf/len)*100
+            var buff_p = buff_p.toFixed(2);
            // var buf = document.getElementById("myVideo").buffered.length;
             //document.getElementById("size").value=document.getElementById("myVideo").buffered.length.toString();//document.getElementById("buf").value;
             console.log("loaded:" + buff_p+"%");
