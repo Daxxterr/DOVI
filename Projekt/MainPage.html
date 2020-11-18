@@ -6,22 +6,26 @@
     <script src="Change%20quality.js"></script>
 </head>
 <body>
-<video id="myVideo" controls preload="auto" height="720" width="1280"></video>
-<label>buffer size:</label>
-<label id="size"></label>
+<!--<video id="myVideo" controls preload="auto" height="720" width="1280" ></video>-->
+<iframe src="https://drive.google.com/file/d/1OB-WqRXr3y5z1jWIBZxWwPup9apKBpEW/preview" width="1280" height="720" allowfullscreen></iframe>
+<!--
 <button onclick="change1080()">Play in 1080p</button>
 <button onclick="change720()">Play in 720p</button>
 <button onclick="change540()">Play in 540p</button>
-<button onclick="change360()">Plan in 360p</button>
-
+<button onclick="change360()">Plan in 360p</button>-->
+<!-- STATISTICS
+<label>buffer size:</label><label id="size"></label>
+<label>connection speed:</label>
+<label>server delay:</label>
+-->
 <script>
     var video = document.getElementById('myVideo');
     var source = document.createElement("source");
-    source.setAttribute("src","https://drive.google.com/file/d/1OB-WqRXr3y5z1jWIBZxWwPup9apKBpEW/view?usp=sharing");
+    source.setAttribute("src","https://drive.google.com/file/d/1OB-WqRXr3y5z1jWIBZxWwPup9apKBpEW/preview");
     video.appendChild(source);
     function change1080(){
         video.pause();
-        source.setAttribute("src","Video/1080.mp4");
+        source.setAttribute("src","https://drive.google.com/file/d/1OB-WqRXr3y5z1jWIBZxWwPup9apKBpEW/preview");
         video.load();
     }
     function change720(){
