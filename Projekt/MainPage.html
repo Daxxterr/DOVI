@@ -3,30 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Statistic video player</title>
-    <script src="Change%20quality.js"></script>
 </head>
-<body>
+<body onload="doStats()"> <!-- funkcia sa spustí pri načítaní stránky a beží celý čas čo beží stránka -->
+
 <!--<video id="myVideo" controls preload="auto" height="720" width="1280" ></video>-->
-<iframe src="https://drive.google.com/file/d/1OB-WqRXr3y5z1jWIBZxWwPup9apKBpEW/preview" width="1280" height="720" allowfullscreen></iframe>
+
+<!-- tu je to fixnute video -->
+<iframe id="myVideo" src="https://drive.google.com/file/d/1OB-WqRXr3y5z1jWIBZxWwPup9apKBpEW/preview" width="1280" height="720" allowfullscreen></iframe>
+
+<!-- BORDEL (asi)
 <a id="ping" href="https://www.drive.google.com" ping="https://drive.google.com"></a>
-<!--
 <button onclick="change1080()">Play in 1080p</button>
 <button onclick="change720()">Play in 720p</button>
 <button onclick="change540()">Play in 540p</button>
 <button onclick="change360()">Plan in 360p</button>-->
+
+<!-- STATISTICS-->
+
+
+<label>buffer size:</label>
+<label id="size"></label>
+<!-- zatiaľ neide
+<label>server delay:</label>
 <label>connection quality:</label>
 <label id="quality"></label>
-<!-- STATISTICS
-<label>buffer size:</label><label id="size"></label>
-
-<label>server delay:</label>
 -->
 <script>
-  /*  var video = document.getElementById('myVideo');
-    var source = document.createElement("source");
+    //ani piči to neide
+    setInterval(
+        function doStats()
+        {
+            var video = document.getElementById("myVideo");
+            var buf=video.buffered.start(0);
+           // var buf = document.getElementById("myVideo").buffered.length;
+            //document.getElementById("size").value=document.getElementById("myVideo").buffered.length.toString();//document.getElementById("buf").value;
+            console.log(buf);
+        },500)
+
+   /* var source = document.createElement("source");
     source.setAttribute("src","https://drive.google.com/file/d/1OB-WqRXr3y5z1jWIBZxWwPup9apKBpEW/preview");
     video.appendChild(source);*/
-    document.getElementById("quality")
+    //document.getElementById("quality")
+   //
+
+    //system.out.print(buf);
 /*
     function change1080(){
         video.pause();
