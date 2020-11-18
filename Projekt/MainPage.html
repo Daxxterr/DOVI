@@ -6,13 +6,14 @@
 </head>
 <body onload="doStats()"> <!-- funkcia sa spustí pri načítaní stránky a beží celý čas čo beží stránka -->
 
-<!--<video id="myVideo" controls preload="auto" height="720" width="1280" ></video>-->
-
+<!--cez filebin -->
+<video id="myVideo" controls preload="auto" height="720" width="1280" ></video>
 <!-- tu je to fixnute video -->
+<!-- cez google drive
 <iframe id="myVideo" src="https://drive.google.com/file/d/1OB-WqRXr3y5z1jWIBZxWwPup9apKBpEW/preview" width="1280" height="720" allowfullscreen></iframe>
-
+-->
 <!-- BORDEL (asi)
-<a id="ping" href="https://www.drive.google.com" ping="https://drive.google.com"></a>
+
 <button onclick="change1080()">Play in 1080p</button>
 <button onclick="change720()">Play in 720p</button>
 <button onclick="change540()">Play in 540p</button>
@@ -29,25 +30,28 @@
 <label id="quality"></label>
 -->
 <script>
-    //ani piči to neide
+
+    var video = document.getElementById("myVideo");
+    var source = document.createElement("source");
+    source.setAttribute("src","https://filebin.net/v4gov3ofnd1tktxi/1080.mp4?t=x3tdbvjy");
+    video.appendChild(source);
+
+
+    //cez fiberbin
     setInterval(
         function doStats()
         {
-            var video = document.getElementById("myVideo");
-            var buf=video.buffered.start(0);
+
+            var buf=video.buffered;
            // var buf = document.getElementById("myVideo").buffered.length;
             //document.getElementById("size").value=document.getElementById("myVideo").buffered.length.toString();//document.getElementById("buf").value;
             console.log(buf);
         },500)
 
-   /* var source = document.createElement("source");
-    source.setAttribute("src","https://drive.google.com/file/d/1OB-WqRXr3y5z1jWIBZxWwPup9apKBpEW/preview");
-    video.appendChild(source);*/
+
     //document.getElementById("quality")
    //
-
-    //system.out.print(buf);
-/*
+/* Pri fiberbin - prepínanie kvality
     function change1080(){
         video.pause();
         source.setAttribute("src","https://drive.google.com/file/d/1OB-WqRXr3y5z1jWIBZxWwPup9apKBpEW/preview");
