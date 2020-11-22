@@ -34,6 +34,7 @@
                 var dashMetrics = player.getDashMetrics();
                 var dashAdapter = player.getDashAdapter();
 
+
                 if (dashMetrics && streamInfo) {
                     const periodIdx = streamInfo.index;
                     var repSwitch = dashMetrics.getCurrentRepresentationSwitch('video', true);
@@ -43,9 +44,11 @@
                     var frameRate = adaptation.Representation_asArray.find(function (rep) {
                         return rep.id === repSwitch.to
                     }).frameRate;
+                    var currentLatency = player.getQualityFor('video');
                     document.getElementById('bufferLevel').innerText = bufferLevel + " secs";
                     document.getElementById('framerate').innerText = frameRate + " fps";
                     document.getElementById('reportedBitrate').innerText = bitrate + " Kbps";
+                    document.getElementById("latency").innerText = currentLatency;
                 }
             }, 1000);
 
@@ -85,6 +88,9 @@
         </div>
         <strong>Framerate:</strong>
         <span id="framerate"></span>
+        <br/>
+        <strong>Current Quality:</strong>
+        <span id="latency"></span>
     </div>
 </div>
 <script>
