@@ -2,81 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Statistic video player</title>
+    <title>Dash try</title>
+    <style>
+        video{
+            width: 1280px;
+            height: 720px;
+        }
+    </style>
 </head>
-<body onload="doStats()"> <!-- funkcia sa spustí pri načítaní stránky a beží celý čas čo beží stránka -->
-
-<!--cez filebin -->
-<video id="myVideo" controls preload="auto" height="720" width="1280" ></video>
-<!-- tu je to fixnute video -->
-<!-- cez google drive
-<iframe id="myVideo" src="https://drive.google.com/file/d/1OB-WqRXr3y5z1jWIBZxWwPup9apKBpEW/preview" width="1280" height="720" allowfullscreen></iframe>
--->
-<!-- BORDEL (asi)
-
-<button onclick="change1080()">Play in 1080p</button>
-<button onclick="change720()">Play in 720p</button>
-<button onclick="change540()">Play in 540p</button>
-<button onclick="change360()">Plan in 360p</button>-->
-
-<!-- STATISTICS-->
-
-
-<label>Loaded:</label>
-<label id="size"></label>
-<!-- zatiaľ neide
-<label>server delay:</label>
-<label>connection quality:</label>
-<label id="quality"></label>
--->
+<body onload="doStuff()">
+<div>
+    <video id="videoPlayer" controls></video>
+</div>
+<label id="xxx"></label>
+<script src="http://cdn.dashjs.org/latest/dash.all.min.js"></script>
 <script>
+    (function(){
+        var url = "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd";
+        var player = dashjs.MediaPlayer().create();
+        player.initialize(document.querySelector("#videoPlayer"), url, true);
 
-    var video = document.getElementById("myVideo");
-    var source = document.createElement("source");
-    //source.setAttribute("src","https://filebin.net/v4gov3ofnd1tktxi/1080.mp4?t=4m2dqvxt");
-    source.setAttribute("src","Video/1080.mp4");
-    video.appendChild(source);
+    })();
+    setInterval(function doStuff(){var buff = dashjs.dashMetrics.getBufferLength("video",true).toString();
+        console.log("buffer: " + buff);},500);
 
-
-    //cez fiberbin
-    setInterval(
-        function doStats()
-        {
-
-            var buf=video.buffered.end(0);
-            var len = video.duration;
-            var buff_p = (buf/len)*100
-            var buff_p = buff_p.toFixed(2);
-           // var buf = document.getElementById("myVideo").buffered.length;
-            //document.getElementById("size").value=document.getElementById("myVideo").buffered.length.toString();//document.getElementById("buf").value;
-            console.log("loaded:" + buff_p+"%");
-            document.getElementById("size").innerText=buff_p.toString() + "%";
-        },500)
-
-
-    //document.getElementById("quality")
-   //
-/* Pri fiberbin - prepínanie kvality
-    function change1080(){
-        video.pause();
-        source.setAttribute("src","https://drive.google.com/file/d/1OB-WqRXr3y5z1jWIBZxWwPup9apKBpEW/preview");
-        video.load();
-    }
-    function change720(){
-        video.pause();
-        source.setAttribute("src","Video/720.mp4");
-        video.load();
-    }
-    function change540(){
-        video.pause();
-        source.setAttribute("src","Video/540.mp4");
-        video.load();
-    }
-    function change360() {
-        video.pause();
-        source.setAttribute("src","Video/360.mp4");
-        video.load();
-    }*/
 </script>
 </body>
 </html>
