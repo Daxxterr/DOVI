@@ -29,7 +29,7 @@
                 clearInterval(bitrateCalculator);
                 // tu pridať metódy po skončení videa
                 document.getElementById("button1").style.visibility="visible";
-                
+
                 /*
                 document.getElementById("bit_calculated").style.visibility="visible";
                 document.getElementById("min_qual").style.visibility="visible";
@@ -94,10 +94,15 @@
                 if(quality<min){min=quality;}
                 if(bitrate>max_res){max_res=bitrate;}
                 if(bitrate<min_res){min_res=bitrate;}
+
+                if(max_res>13000){
+                    document.getElementById("max_q_res").innerText="3840x2160";
+                }
+
                 document.getElementById("min_qual").innerText=min;
                 document.getElementById("max_qual").innerText=max;
                 document.getElementById("min_q_res").innerText=min_res;
-                document.getElementById("max_q_res").innerText=max_res;
+               // document.getElementById("max_q_res").innerText=max_res;
             }, 1000);
 
 
