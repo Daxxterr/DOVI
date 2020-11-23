@@ -28,18 +28,11 @@
             player.on(dashjs.MediaPlayer.events["PLAYBACK_ENDED"], function () {
                 clearInterval(eventPoller);
                 clearInterval(bitrateCalculator);
-                // tu pridať metódy po skončení videa
                 document.getElementById("res_label").style.visibility="visible";
                 document.getElementById("response").style.visibility="visible";
                 document.getElementById("button1").style.visibility="visible";
 
-                /*
-                document.getElementById("bit_calculated").style.visibility="visible";
-                document.getElementById("min_qual").style.visibility="visible";
-                document.getElementById("q1").style.visibility="visible";
-                document.getElementById("q2").style.visibility="visible";
-                document.getElementById("avg_qual").style.visibility="visible";
-                document.getElementById("max_qual").style.visibility="visible";*/
+
             });
             var arr = [];
             var bit_arr = [];
@@ -71,7 +64,6 @@
                 }
                 arr.push(quality);
                 bit_arr.push(bitrate);
-               // console.log(bit_arr);
 
 
 
@@ -91,7 +83,6 @@
                     bit_sum+=bit_arr[i];
                 }
                 bit_avg = bit_sum/(bit_arr.length);
-                //console.log(bit_avg);
                 document.getElementById("avg_q_res").innerText=bit_avg;
                 if(quality>max){max=quality;}
                 if(quality<min){min=quality;}
@@ -127,8 +118,6 @@
 
                 document.getElementById("min_qual").innerText=min;
                 document.getElementById("max_qual").innerText=max;
-                //document.getElementById("min_q_res").innerText=min_res;
-                // document.getElementById("max_q_res").innerText=max_res;
             }, 1000);
 
 
@@ -161,8 +150,6 @@
             document.getElementById("q12").style.visibility="visible";
             document.getElementById("bit_log").style.visibility="visible";
             var res = document.getElementById("response").value;
-            //console.log(avg);
-            //le.log(parseInt(res)+parseInt(avg));
             document.getElementById("user_rate").innerText=res;
             document.getElementById("user_rate").style.visibility="visible";
             var total = (parseInt(res)+parseInt(avg))/2;
