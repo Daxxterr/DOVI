@@ -27,6 +27,13 @@
             player.on(dashjs.MediaPlayer.events["PLAYBACK_ENDED"], function () {
                 clearInterval(eventPoller);
                 clearInterval(bitrateCalculator);
+                // tu pridať metódy po skončení videa
+                document.getElementById("bit_calculated").style.visibility="visible";
+                document.getElementById("min_qual").style.visibility="visible";
+                document.getElementById("q1").style.visibility="visible";
+                document.getElementById("q2").style.visibility="visible";
+                document.getElementById("avg_qual").style.visibility="visible";
+                document.getElementById("max_qual").style.visibility="visible";
             });
             var arr = [];
             var max =0, min =10;
@@ -62,6 +69,7 @@
                     sum+=arr[i];
                 }
                 avg=sum/arr.length;
+                avg=Math.round(avg*100)/100;
                 //console.log(avg);
                 document.getElementById("avg_qual").innerText=avg;
                 if(quality>max){max=quality;}
@@ -112,12 +120,12 @@
         <strong>Current frame rate quality:</strong>
         <span id="qual"></span>
         <br/>
-        <strong>Bit rate quality (min | avg | max): </strong>
-        <span id="min_qual"></span>
-        <span> | </span>
-        <span id="avg_qual"></span>
-        <span> | </span>
-        <span id="max_qual"></span>
+        <strong id="bit_calculated" style="visibility: hidden">Bit rate quality (min | avg | max): </strong>
+        <span id="min_qual" style="visibility: hidden"></span>
+        <span id="q1" style="visibility: hidden"> | </span>
+        <span id="avg_qual" style="visibility: hidden"></span>
+        <span id="q2" style="visibility: hidden"> | </span>
+        <span id="max_qual" style="visibility: hidden"></span>
     </div>
 </div>
 <script>
