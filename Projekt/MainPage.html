@@ -28,7 +28,8 @@
                 clearInterval(eventPoller);
                 clearInterval(bitrateCalculator);
             });
-
+            var arr = [];
+            var max =0, min =10;
             var eventPoller = setInterval(function () {
                 var streamInfo = player.getActiveStream().getStreamInfo();
                 var dashMetrics = player.getDashMetrics();
@@ -44,13 +45,31 @@
                     var frameRate = adaptation.Representation_asArray.find(function (rep) {
                         return rep.id === repSwitch.to
                     }).frameRate;
-                    var currentLatency = player.getQualityFor('video');
+                    var quality = player.getQualityFor('video');
                     document.getElementById('bufferLevel').innerText = bufferLevel + " secs";
                     document.getElementById('framerate').innerText = frameRate + " fps";
                     document.getElementById('reportedBitrate').innerText = bitrate + " Kbps";
-                    document.getElementById("latency").innerText = currentLatency;
+                    document.getElementById("qual").innerText = quality;
+
+
                 }
+                arr.push(quality);
+                //console.log(arr);
+                var sum =0;
+                var avg=0;
+                for(var i=0;i<arr.length;i++)
+                {
+                    sum+=arr[i];
+                }
+                avg=sum/arr.length;
+                //console.log(avg);
+                document.getElementById("avg_qual").innerText=avg;
+                if(quality>max){max=quality;}
+                if(quality<min){min=quality;}
+                document.getElementById("min_qual").innerText=min;
+                document.getElementById("max_qual").innerText=max;
             }, 1000);
+
 
             if (video.webkitVideoDecodedByteCount !== undefined) {
                 var lastDecodedByteCount = 0;
@@ -63,6 +82,7 @@
             } else {
                 document.getElementById('chrome-only').style.display = "none";
             }
+
 
 
         }
@@ -89,8 +109,15 @@
         <strong>Framerate:</strong>
         <span id="framerate"></span>
         <br/>
-        <strong>Current Quality:</strong>
-        <span id="latency"></span>
+        <strong>Current frame rate quality:</strong>
+        <span id="qual"></span>
+        <br/>
+        <strong>Bit rate quality (min | avg | max): </strong>
+        <span id="min_qual"></span>
+        <span> | </span>
+        <span id="avg_qual"></span>
+        <span> | </span>
+        <span id="max_qual"></span>
     </div>
 </div>
 <script>
@@ -100,4 +127,3 @@
 </script>
 <script src="../highlighter.js"></script>
 </body>
-</html>
