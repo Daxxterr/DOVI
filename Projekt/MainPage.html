@@ -16,6 +16,7 @@
 
 
     <script class="code">
+        var avg=0;
         function init() {
             var video,
                 player,
@@ -28,6 +29,8 @@
                 clearInterval(eventPoller);
                 clearInterval(bitrateCalculator);
                 // tu pridať metódy po skončení videa
+                document.getElementById("res_label").style.visibility="visible";
+                document.getElementById("response").style.visibility="visible";
                 document.getElementById("button1").style.visibility="visible";
 
                 /*
@@ -68,12 +71,12 @@
                 }
                 arr.push(quality);
                 bit_arr.push(bitrate);
-                console.log(bit_arr);
+               // console.log(bit_arr);
 
 
 
                 var sum =0;
-                var avg=0;
+
                 for(var i=0;i<arr.length;i++)
                 {
                     sum+=arr[i];
@@ -88,21 +91,44 @@
                     bit_sum+=bit_arr[i];
                 }
                 bit_avg = bit_sum/(bit_arr.length);
-                console.log(bit_avg);
+                //console.log(bit_avg);
                 document.getElementById("avg_q_res").innerText=bit_avg;
                 if(quality>max){max=quality;}
                 if(quality<min){min=quality;}
                 if(bitrate>max_res){max_res=bitrate;}
                 if(bitrate<min_res){min_res=bitrate;}
 
-                if(max_res>13000){
-                    document.getElementById("max_q_res").innerText="3840x2160";
-                }
+                if(max_res>=13000){document.getElementById("max_q_res").innerText="3840x2160";}
+                else if(max_res<13000 && max_res>=6000){document.getElementById("max_q_res").innerText="1920x1080";}
+                else if(max_res<6000 && max_res>=2500){document.getElementById("max_q_res").innerText="1280x720";}
+                else if(max_res<2500 && max_res>=1500){document.getElementById("max_q_res").innerText="1024x576";}
+                else if(max_res<1500 && max_res>=800){document.getElementById("max_q_res").innerText="768x432";}
+                else if(max_res<800 && max_res>=400){document.getElementById("max_q_res").innerText="640x360";}
+                else if(max_res<400 && max_res>=200){document.getElementById("max_q_res").innerText="480x270";}
+                else{document.getElementById("max_q_res").innerText="320x180";}
+
+                if(min_res>=13000){document.getElementById("min_q_res").innerText="3840x2160";}
+                else if(min_res<13000 && min_res>=6000){document.getElementById("min_q_res").innerText="1920x1080";}
+                else if(min_res<6000 && min_res>=2500){document.getElementById("min_q_res").innerText="1280x720";}
+                else if(min_res<2500 && min_res>=1500){document.getElementById("min_q_res").innerText="1024x576";}
+                else if(min_res<1500 && min_res>=800){document.getElementById("min_q_res").innerText="768x432";}
+                else if(min_res<800 && min_res>=400){document.getElementById("min_q_res").innerText="640x360";}
+                else if(min_res<400 && min_res>=200){document.getElementById("min_q_res").innerText="480x270";}
+                else{document.getElementById("min_q_res").innerText="320x180";}
+
+                if(bit_avg>=12000){document.getElementById("avg_q_res").innerText="3840x2160";}
+                else if(bit_avg<12000 && bit_avg>=6000){document.getElementById("avg_q_res").innerText="1920x1080";}
+                else if(bit_avg<6000 && bit_avg>=2500){document.getElementById("avg_q_res").innerText="1280x720";}
+                else if(bit_avg<2500 && bit_avg>=1500){document.getElementById("avg_q_res").innerText="1024x576";}
+                else if(bit_avg<1500 && bit_avg>=800){document.getElementById("avg_q_res").innerText="768x432";}
+                else if(bit_avg<800 && bit_avg>=400){document.getElementById("avg_q_res").innerText="640x360";}
+                else if(bit_avg<400 && bit_avg>=200){document.getElementById("avg_q_res").innerText="480x270";}
+                else{document.getElementById("avg_q_res").innerText="320x180";}
 
                 document.getElementById("min_qual").innerText=min;
                 document.getElementById("max_qual").innerText=max;
-                document.getElementById("min_q_res").innerText=min_res;
-               // document.getElementById("max_q_res").innerText=max_res;
+                //document.getElementById("min_q_res").innerText=min_res;
+                // document.getElementById("max_q_res").innerText=max_res;
             }, 1000);
 
 
@@ -134,6 +160,18 @@
             document.getElementById("q11").style.visibility="visible";
             document.getElementById("q12").style.visibility="visible";
             document.getElementById("bit_log").style.visibility="visible";
+            var res = document.getElementById("response").value;
+            //console.log(avg);
+            //le.log(parseInt(res)+parseInt(avg));
+            document.getElementById("user_rate").innerText=res;
+            document.getElementById("user_rate").style.visibility="visible";
+            var total = (parseInt(res)+parseInt(avg))/2;
+            document.getElementById("total_rating").innerText=total;
+            document.getElementById("total_rating").style.visibility="visible";
+            document.getElementById("total_r").style.visibility="visible";
+            document.getElementById("user_r").style.visibility="visible";
+            document.getElementById("res_label").style.visibility="hidden";
+            document.getElementById("response").style.visibility="hidden";
             document.getElementById("button1").style.visibility="hidden";
 
         }
@@ -163,13 +201,17 @@
         <strong>Current bit rate quality:</strong>
         <span id="qual"></span>
         <br/>
+        <br/>
+        <label id="res_label" for="response" style="visibility: hidden">How did you like the stream (from 1 to 10)</label>
+        <input type="number" id="response" name="response" min="1" max="10" style="visibility: hidden">
+        <button id="button1" style="visibility: hidden" onclick="doStuff() ">Submit</button>
+        <br>
         <strong id="bit_calculated" style="visibility: hidden">Bit rate quality (min | avg | max): </strong>
         <span id="min_qual" style="visibility: hidden"></span>
         <span id="q1" style="visibility: hidden"> | </span>
         <span id="avg_qual" style="visibility: hidden"></span>
         <span id="q2" style="visibility: hidden"> | </span>
         <span id="max_qual" style="visibility: hidden"></span>
-        <button id="button1" style="visibility: hidden" onclick="doStuff() ">I love it</button>
         <br/>
         <strong id="bit_log" style="visibility: hidden">Resolution quality (min | avg | max): </strong>
         <span id="min_q_res" style="visibility: hidden"></span>
@@ -177,6 +219,12 @@
         <span id="avg_q_res" style="visibility: hidden"></span>
         <span id="q12" style="visibility: hidden"> | </span>
         <span id="max_q_res" style="visibility: hidden"></span>
+        <br>
+        <strong id="user_r" style="visibility: hidden">User rating: </strong>
+        <span id="user_rate" style="visibility: hidden"></span>
+        <br>
+        <strong id="total_r" style="visibility: hidden">Final rating based on average score and user feedback: </strong>
+        <span id="total_rating" style="visibility: hidden"></span>
 
     </div>
 </div>
