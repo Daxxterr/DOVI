@@ -31,9 +31,12 @@
                 document.getElementById("res_label").style.visibility="visible";
                 document.getElementById("response").style.visibility="visible";
                 document.getElementById("button1").style.visibility="visible";
-
+                });
+            player.on(dashjs.MediaPlayer.events["BUFFER_EMPTY"],function () {
+                lagg_count++;
 
             });
+            var lagg_count =0;
             var arr = [];
             var bit_arr = [];
             var max =0, min =10;
@@ -55,18 +58,17 @@
                         return rep.id === repSwitch.to
                     }).frameRate;
                     var quality = player.getQualityFor('video');
+
                     document.getElementById('bufferLevel').innerText = bufferLevel + " secs";
                     document.getElementById('framerate').innerText = frameRate + " fps";
                     document.getElementById('reportedBitrate').innerText = bitrate + " Kbps";
                     document.getElementById("qual").innerText = quality;
+                    document.getElementById("lagg_counter").innerText=lagg_count + " times";
 
 
                 }
                 arr.push(quality);
                 bit_arr.push(bitrate);
-
-
-
                 var sum =0;
 
                 for(var i=0;i<arr.length;i++)
@@ -160,6 +162,8 @@
             document.getElementById("res_label").style.visibility="hidden";
             document.getElementById("response").style.visibility="hidden";
             document.getElementById("button1").style.visibility="hidden";
+            document.getElementById("lagg_counter").style.visibility="visible";
+            document.getElementById("lagg_c").style.visibility="visible";
 
         }
     </script>
@@ -212,6 +216,9 @@
         <br>
         <strong id="total_r" style="visibility: hidden">Final rating based on average score and user feedback: </strong>
         <span id="total_rating" style="visibility: hidden"></span>
+        <br>
+        <strong id="lagg_c" style="visibility: hidden">Video stopped: </strong>
+        <span id="lagg_counter" style="visibility: hidden"></span>
 
     </div>
 </div>
