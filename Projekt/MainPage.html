@@ -21,6 +21,7 @@
         var swap_count =0;
         var loadTime =Date.now();
         var resultTime;
+        var c=0;
         function init() {
             var video,
                 player,
@@ -45,8 +46,13 @@
             });
             player.on(dashjs.MediaPlayer.events["PLAYBACK_STARTED"],function () {
                 var videoStart = Date.now();
+
+                if(c==0){
                 resultTime=videoStart-loadTime;
-                document.getElementById("delay_time").innerText=resultTime + " miliseconds";
+                console.log(loadTime);
+                console.log(videoStart);
+                console.log(resultTime);
+                document.getElementById("delay_time").innerText=resultTime + " miliseconds";c++;}
             });
 
 
