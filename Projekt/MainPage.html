@@ -19,6 +19,8 @@
         var avg=0;
         var lag_count =0;
         var swap_count =0;
+        var loadTime =Date.now();
+        var resultTime;
         function init() {
             var video,
                 player,
@@ -38,8 +40,13 @@
                 swap_count++;
             });
 
-            player.on(dashjs.MediaPlayer.events["PLAYBACK_WAITING"],function () { // BUFFER_EMPTY
+            player.on(dashjs.MediaPlayer.events["PLAYBACK_WAITING"],function () {
                 lag_count++;
+            });
+            player.on(dashjs.MediaPlayer.events["PLAYBACK_STARTED"],function () {
+                var videoStart = Date.now();
+                resultTime=videoStart-loadTime;
+                document.getElementById("delay_time").innerText=resultTime + " miliseconds";
             });
 
 
@@ -76,7 +83,6 @@
                 }
                 arr.push(quality);
                 bit_arr.push(bitrate);
-                console.log(lag_count);
                 var sum =0;
 
                 for(var i=0;i<arr.length;i++)
@@ -178,6 +184,9 @@
             document.getElementById("swap_counter").innerText=swap_count + " times";
             lag_count-=1;
             document.getElementById("lag_counter").innerText=lag_count + " times";
+            document.getElementById("delay_time").style.visibility="visible";
+            document.getElementById("delay_t").style.visibility="visible";
+
         }
     </script>
 
@@ -235,6 +244,9 @@
         <br>
         <strong id="lag_c" style="visibility: hidden">Video stopped: </strong>
         <span id="lag_counter" style="visibility: hidden"></span>
+        <br>
+        <strong id="delay_t" style="visibility: hidden">Video start delay: </strong>
+        <span id="delay_time" style="visibility: hidden"></span>
 
     </div>
 </div>
