@@ -104,7 +104,7 @@
                 {
                     bit_sum+=bit_arr[i];
                 }
-                bit_avg = bit_sum/(bit_arr.length);
+                bit_avg = bit_sum/(bit_arr.length -1);
                 document.getElementById("avg_q_res").innerText=bit_avg;
                 if(quality>max){max=quality;}
                 if(quality<min){min=quality;}
@@ -129,8 +129,8 @@
                 else if(min_res<400 && min_res>=200){document.getElementById("min_q_res").innerText="480x270";}
                 else{document.getElementById("min_q_res").innerText="320x180";}
 
-                if(bit_avg>=11500){document.getElementById("avg_q_res").innerText="3840x2160";}
-                else if(bit_avg<11500 && bit_avg>=6000){document.getElementById("avg_q_res").innerText="1920x1080";}
+                if(bit_avg>=13000){document.getElementById("avg_q_res").innerText="3840x2160";}
+                else if(bit_avg<13000 && bit_avg>=6000){document.getElementById("avg_q_res").innerText="1920x1080";}
                 else if(bit_avg<6000 && bit_avg>=2500){document.getElementById("avg_q_res").innerText="1280x720";}
                 else if(bit_avg<2500 && bit_avg>=1500){document.getElementById("avg_q_res").innerText="1024x576";}
                 else if(bit_avg<1500 && bit_avg>=800){document.getElementById("avg_q_res").innerText="768x432";}
