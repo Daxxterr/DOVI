@@ -17,7 +17,7 @@
 
     <script class="code">
         var avg=0;
-        var lagg_count =0;
+        var lag_count =0;
         var swap_count =0;
         function init() {
             var video,
@@ -34,10 +34,15 @@
                 document.getElementById("response").style.visibility="visible";
                 document.getElementById("button1").style.visibility="visible";
                 });
-            player.on(dashjs.MediaPlayer.events["QUALITY_CHANGE_REQUESTED"],function () { //BUFFER_EMPTY PLAYBACK_WAITING
+            player.on(dashjs.MediaPlayer.events["QUALITY_CHANGE_REQUESTED"],function () {
                 swap_count++;
-
             });
+
+            player.on(dashjs.MediaPlayer.events["PLAYBACK_STALLED"],function () { // BUFFER_EMPTY
+                lag_count++;
+            });
+
+
 
             var arr = [];
             var bit_arr = [];
@@ -65,12 +70,14 @@
                     document.getElementById('framerate').innerText = frameRate + " fps";
                     document.getElementById('reportedBitrate').innerText = bitrate + " Kbps";
                     document.getElementById("qual").innerText = quality;
-                    document.getElementById("swap_counter").innerText=swap_count + " times";
+
 
 
                 }
                 arr.push(quality);
                 bit_arr.push(bitrate);
+                console.log(bit_arr);
+                console.log(swap_count);
                 var sum =0;
 
                 for(var i=0;i<arr.length;i++)
@@ -166,7 +173,11 @@
             document.getElementById("button1").style.visibility="hidden";
             document.getElementById("swap_counter").style.visibility="visible";
             document.getElementById("swap_c").style.visibility="visible";
-
+            document.getElementById("lag_counter").style.visibility="visible";
+            document.getElementById("lag_c").style.visibility="visible";
+            swap_count-=1;
+            document.getElementById("swap_counter").innerText=swap_count + " times";
+            document.getElementById("lag_counter").innerText=lag_count + " times";
         }
     </script>
 
@@ -221,6 +232,9 @@
         <br>
         <strong id="swap_c" style="visibility: hidden">Video quality changed: </strong>
         <span id="swap_counter" style="visibility: hidden"></span>
+        <br>
+        <strong id="lag_c" style="visibility: hidden">Video stopped: </strong>
+        <span id="lag_counter" style="visibility: hidden"></span>
 
     </div>
 </div>
