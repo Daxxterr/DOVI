@@ -76,8 +76,7 @@
                 }
                 arr.push(quality);
                 bit_arr.push(bitrate);
-                console.log(bit_arr);
-                console.log(swap_count);
+                console.log(lag_count);
                 var sum =0;
 
                 for(var i=0;i<arr.length;i++)
@@ -177,6 +176,7 @@
             document.getElementById("lag_c").style.visibility="visible";
             swap_count-=1;
             document.getElementById("swap_counter").innerText=swap_count + " times";
+            lag_count-=1;
             document.getElementById("lag_counter").innerText=lag_count + " times";
         }
     </script>
