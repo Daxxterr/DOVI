@@ -38,7 +38,7 @@
                 swap_count++;
             });
 
-            player.on(dashjs.MediaPlayer.events["PLAYBACK_STALLED"],function () { // BUFFER_EMPTY
+            player.on(dashjs.MediaPlayer.events["PLAYBACK_WAITING"],function () { // BUFFER_EMPTY
                 lag_count++;
             });
 
